@@ -1,18 +1,17 @@
-var Sighting = require('../models/Sighting');
+var User = require('../models/User');
 
 module.exports = {
   create: function(req, res) {
-    var newSighting = new Sighting(req.body);
-    newSighting.save( function(err, result) {
+    console.log("create", req.body);
+    var newUser = new User(req.body);
+    newUser.save( function(err, result) {
       if (err) return res.status(500).send(err);
       res.send(result);
     });
   },
 
   read: function(req, res) {
-    console.log('req.query: ', req.query);
-    Sighting.find(req.query)
-    .populate("user")
+    User.find(req.query)
     .exec(function(err, result) {
       if (err) return res.status(500).send(err);
       res.send(result);
@@ -20,14 +19,14 @@ module.exports = {
   },
 
   update: function(req, res) {
-    Sighting.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
+    User.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
       if (err) return res.status(500).send(err);
       res.send(result);
     });
   },
 
   delete: function(req, res) {
-    Sighting.findByIdAndRemove(req.params.id, function(err, result) {
+    User.findByIdAndRemove(req.params.id, function(err, result) {
       if (err) return res.status(500).send(err);
       res.send(result);
     });
